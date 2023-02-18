@@ -11,6 +11,10 @@ const { userRouter } = require("./Routers/user.router");
 const { todoRouter } = require("./Routers/todo.router");
 const { authentication } = require("./Middleware/authentication.middleware.");
 
+app.get("/", (req, res) => {
+  res.send("THIS IS YOUR HOMEPAGE");
+});
+
 app.use("/users", userRouter);
 
 app.use(authentication);
