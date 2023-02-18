@@ -12,15 +12,6 @@ const { userRouter } = require("./Routers/user.router");
 const { todoRouter } = require("./Routers/todo.router");
 const { authentication } = require("./Middleware/authentication.middleware.");
 
-const connectDB = async () => {
-  try {
-    await connection;
-    console.log(`MongoDB Connected`);
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 app.get("/", (req, res) => {
   res.send("THIS IS YOUR HOMEPAGE");
 });
@@ -30,8 +21,12 @@ app.use("/users", userRouter);
 app.use(authentication);
 app.use("/todos", todoRouter);
 
-connectDB().then(() => {
-  app.listen(process.env.PORT, () => {
-    console.log(`server is running on ${process.env.PORT} port`);
-  });
+app.listen(process.env.PORT, async () => {
+  try {
+    await connection;
+    console.log("db connected");
+  } catch (error) {
+    console.log(error);
+  }
+  console.log(`server is running on ${process.env.PORT} port`);
 });
