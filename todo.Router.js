@@ -28,7 +28,7 @@ todoRouter.delete("/delete/:id", async (req, res) => {
   const todoId = req.params.id;
   try {
     await todoModel.findByIdAndDelete({ _id: todoId });
-    res.send("todo deleted successfully");
+    res.send({ msg: "todo deleted successfully" });
   } catch (error) {
     res.send(error);
   }
@@ -40,11 +40,11 @@ todoRouter.patch("/update/:id", async (req, res) => {
   const todos = await todoModel.findOne({ _id: todoId });
 
   if (todos.user !== req.body.user) {
-    res.send("You are not authorized");
+    res.send({ msg: "You are not authorized" });
   } else {
     try {
       await todoModel.findByIdAndUpdate({ _id: todoId }, req.body);
-      res.send("todo updated successfully");
+      res.send({ msg: "todo updated successfully" });
     } catch (error) {
       res.send(error);
     }
