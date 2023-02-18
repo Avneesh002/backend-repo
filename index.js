@@ -8,8 +8,8 @@ app.use(express.json());
 app.use(cors());
 
 const { connection } = require("./configs/db");
-const { userRouter } = require("./Routers/user.router");
-const { todoRouter } = require("./Routers/todo.router");
+const { userRouter } = require("./user.router");
+const { todoRouter } = require("./todo.Router");
 const { authentication } = require("./Middleware/authentication.middleware.");
 
 app.get("/", (req, res) => {
