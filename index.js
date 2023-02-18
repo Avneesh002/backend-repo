@@ -24,7 +24,7 @@ app.use("/todos", todoRouter);
 
 app.listen(process.env.PORT, async () => {
   try {
-    await mongoose.connect(process.env.SERVER_LINK);
+    await connection;
     console.log(" ------- Server - started ------- db - connected");
   } catch (error) {
     console.log(error);
