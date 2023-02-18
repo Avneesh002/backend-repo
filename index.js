@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
 
 const app = express();
 require("dotenv").config();
@@ -25,8 +24,9 @@ app.use("/todos", todoRouter);
 app.listen(process.env.PORT, async () => {
   try {
     await connection;
-    console.log(" ------- Server - started ------- db - connected");
+    console.log("db - connected");
   } catch (error) {
     console.log(error);
   }
+  console.log(`server is running on ${process.env.PORT} port`);
 });
