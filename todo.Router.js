@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const todoRouter = express.Router();
 const { todoModel } = require("./Models/todo.model");
 const Cookies = require("js-cookie");
+const { authentication } = require("./Middleware/authentication.middleware.");
 
 todoRouter.get("/alltodo", async (req, res) => {
   try {
@@ -52,17 +53,14 @@ todoRouter.patch("/update/:id", async (req, res) => {
   }
 });
 
-todoRouter.get("/", async (req, res) => {
-  const token = Cookies.get("token");
-  console.log(token);
+todoRouter.get("/all", authentication, async (req, res) => {
+  // const token = Cookies.get("token");
+  console.log(req.body);
 
-  const decoded = jwt.verify(token, "masai");
-  try {
-    const todos = await todoModel.find({ user: decoded.userId });
-    res.send(todos);
-  } catch (error) {
-    res.send(error);
-  }
+  const todos = await todoModel.find({ user: req.body.user });
+  res.send(todos);
+
+  // res.send("Hi");
 });
 
 module.exports = { todoRouter };
