@@ -1,5 +1,5 @@
 const express = require("express");
-const { userModel } = require("./Models/user.model");
+const { userModel } = require("../Models/user.model");
 const userRouter = express.Router();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -17,12 +17,12 @@ userRouter.post("/register", async (req, res) => {
   const { name, email, pass } = req.body;
   try {
     if (!name || !email || !pass) {
-      res.send({ msg: "please give required info" });
+      res.send({ msg: "please give required info", value: false });
     } else {
       bcrypt.hash(pass, 4, async function (err, hash) {
         const user = new userModel({ name, email, pass: hash });
         await user.save();
-        res.send({ msg: "User successfully registered" });
+        res.send({ msg: "User successfully registered", value: true });
       });
     }
   } catch (err) {
@@ -38,13 +38,13 @@ userRouter.post("/login", async (req, res) => {
       bcrypt.compare(pass, user[0].pass, function (err, result) {
         if (result) {
           let token = jwt.sign({ userId: user[0]._id }, "masai");
-          res.send({ msg: "User successfully logged in", token });
+          res.send({ msg: "User successfully logged in", token, value: true });
         } else {
-          res.send({ msg: "enter right Credentials" });
+          res.send({ msg: "enter right Credentials", value: false });
         }
       });
     } else {
-      res.send({ msg: "enter right Credentials" });
+      res.send({ msg: "enter right Credentials", value: false });
     }
   } catch (error) {
     res.send("Error : ", error);

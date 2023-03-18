@@ -1,21 +1,19 @@
 const jwt = require("jsonwebtoken");
-const Cookies = require("js-cookie");
 
 function authentication(req, res, next) {
-  const token = req.headers.cookies;
-  console.log(token);
+  const token = req.headers?.authorization;
 
   if (token) {
     const decoded = jwt.verify(token, "masai");
 
     if (decoded) {
-      req.body.user = decoded.userId; //here you are adding user key to the req.body object
+      req.body.user = decoded.userId;
       next();
     } else {
-      res.send({ msg: "Please Login First" });
+      res.send("Please Login First");
     }
   } else {
-    res.send({ msg: "Please Login First" });
+    res.send("Please Login First");
   }
 }
 
