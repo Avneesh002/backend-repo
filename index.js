@@ -4,7 +4,7 @@ const app = express();
 require("dotenv").config();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "*" }));
 
 const { connection } = require("./configs/db");
 const { userRouter } = require("./Routers/user.router");
