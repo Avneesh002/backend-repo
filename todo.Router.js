@@ -1,7 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const todoRouter = express.Router();
-const { todoModel } = require("../Models/todo.model");
+const { todoModel } = require("./Models/todo.model");
 
 todoRouter.get("/alltodo", async (req, res) => {
   try {

@@ -1,15 +1,14 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
+const { connection } = require("./configs/db");
+const { userRouter } = require("./user.router");
+const { todoRouter } = require("./todo.Router");
+const { authentication } = require("./Middleware/authentication.middleware.");
 require("dotenv").config();
 
-app.use(express.json());
 app.use(cors({ origin: "*" }));
-
-const { connection } = require("./configs/db");
-const { userRouter } = require("./Routers/user.router");
-const { todoRouter } = require("./Routers/todo.router");
-const { authentication } = require("./Middleware/authentication.middleware.");
+app.use(express.json());
 
 app.use("/users", userRouter);
 
