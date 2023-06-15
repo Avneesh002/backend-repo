@@ -10,10 +10,10 @@ function authentication(req, res, next) {
       req.body.user = decoded.userId;
       next();
     } else {
-      res.send("Please Login First");
+      res.send({ msg: "Please Login First" });
     }
   } else {
-    res.send("Please Login First");
+    res.send({ msg: "Please Login First" });
   }
 }
 
