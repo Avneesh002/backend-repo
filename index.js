@@ -7,6 +7,8 @@ const { todoRouter } = require("./todo.Router");
 const { blogRouter } = require("./blog.Router");
 const { commentRouter } = require("./comment.Router");
 const { authentication } = require("./Middleware/authentication.middleware.");
+const { quizRouter } = require("./quiz.Router");
+const { leaderboardRoute } = require("./leaderboard.Router");
 require("dotenv").config();
 
 app.use(cors({ origin: "*" }));
@@ -18,6 +20,8 @@ app.use(authentication);
 app.use("/blog", blogRouter);
 app.use("/todos", todoRouter);
 app.use("/comment", commentRouter);
+app.use("/quiz", quizRouter);
+app.use("/leaderboard", leaderboardRoute);
 
 app.listen(process.env.PORT, async () => {
   try {
